@@ -32,7 +32,7 @@ body {
   margin-top: 0;
 }
 
-/* footer */
+/* 固定页脚 */
 html {
   position: relative;
   min-height: 100%;
@@ -61,5 +61,16 @@ body {
         color: inherit;
       }
     }
+  }
+}
+
+/* User register page */
+
+.register-page {
+  img.captcha {
+    cursor: pointer;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 3px;
   }
 }
