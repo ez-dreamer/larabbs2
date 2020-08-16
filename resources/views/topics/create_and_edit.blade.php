@@ -5,20 +5,8 @@
 <div class="container">
   <div class="col-md-10 offset-md-1">
     <div class="card ">
-
-{{--      <div class="card-header">--}}
-{{--        <h1>--}}
-{{--          Topic /--}}
-{{--          @if($topic->id)--}}
-{{--            Edit #{{ $topic->id }}--}}
-{{--          @else--}}
-{{--            Create--}}
-{{--          @endif--}}
-{{--        </h1>--}}
-{{--      </div>--}}
-
       <div class="card-body">
-      <h2 class=""></h2>
+        <h2 class=""></h2>
         <i class="far fa-edit"></i>
         @if($topic->id)
           编辑话题
@@ -38,29 +26,32 @@
 
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-          
-                <div class="form-group">
-                	<input class="form-control" type="text" name="title" value="{{ old('title', $topic->title ) }}" placeholder="请填写标题" required/>
-                </div>
-              <div class="form-group">
-                  <input class="form-control" type="hidden" name="view_count" value="3" placeholder="请填写标题" required/>
-              </div>
-              <div class="form-group">
-                  <select class="form-control" name="category_id" required>
-                      <option value="" hidden disabled selected>请选择分类</option>
-                      @foreach($categories as $category)
-                          <option value="{{ $category->id }}">{{ $category->name }}</option>
-                      @endforeach
-                  </select>
-              </div>
-              <div class="form-group">
-                    <textarea name="body" id="editor" class="form-control" rows="6" placeholder="请填写至少三个字符的内容。" required>{{ old('body', $topic->body ) }}</textarea>
-                </div>
+          <div class="form-group">
+            <input class="form-control" type="text" name="title" value="{{ old('title', $topic->title ) }}" placeholder="请填写标题" required/>
+          </div>
 
+          <div class="form-group">
+              <input class="form-control" type="hidden" name="view_count" value="3" placeholder="请填写标题" required/>
+          </div>
+
+          <div class="form-group">
+            <select class="form-control" name="category_id" required>
+              <option value="" hidden disabled selected>请选择分类</option>
+
+              @foreach($categories as $category)
+          `   <option value="{{ $category->id }}">{{ $category->name }}</option>
+              @endforeach
+
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea name="body" id="editor" class="form-control" rows="6" placeholder="请填写至少三个字符的内容。" required>{{ old('body', $topic->body ) }}</textarea>
+          </div>
 
           <div class="well well-sm">
             <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2" aria-hidden="true"></i>保存</button>
           </div>
+
         </form>
       </div>
     </div>
