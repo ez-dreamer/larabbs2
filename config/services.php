@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'baidu_translate' => [
+        'appid' => env('BAIDU_TRANSLATE_APPID'),/*'20200816000544627',*/
+        'key'   => env('BAIDU_TRANSLATE_KEY'),
+    ],
+
 ];
