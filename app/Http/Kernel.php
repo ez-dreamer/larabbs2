@@ -9,16 +9,27 @@ class Kernel extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.
+     * 全局中间件
      *
      * These middleware are run during every request to your application.
      *
      * @var array
      */
     protected $middleware = [
+        // 修正代理服务器后的服务器参数
         \App\Http\Middleware\TrustProxies::class,
+
+        // 检测应用是否进入『维护模式』
+        // 见：https://learnku.com/docs/laravel/5.7/configuration#maintenance-mode
         \App\Http\Middleware\CheckForMaintenanceMode::class,
+
+        // 检测表单请求的数据是否过大
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+
+        // 对提交的请求参数进行 PHP 函数 'trim()' 处理
         \App\Http\Middleware\TrimStrings::class,
+
+        // 将提交请求参数中空子串转换为 null
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
@@ -29,16 +40,37 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            // Cookie 加密解密
             \App\Http\Middleware\EncryptCookies::class,
+
+            // 将 Cookie 添加到响应中
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+
+            // 开启会话
             \Illuminate\Session\Middleware\StartSession::class,
+
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
+
+            // 将系统的错误数据注入到视图变量 $errors 中
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+
+            // 检验 CSRF ,防止跨站请求伪造的安全威胁
+            // 见：https://learnku.com/docs/laravel/5.7/csrf
             \App\Http\Middleware\VerifyCsrfToken::class,
+
+            // 处理路由绑定
+            // 见：https://learnku.com/docs/laravel/5.7/routing#route-model-binding
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
+            // 强制用户邮箱认证
             \App\Http\Middleware\EnsureEmailIsVerified::class,
+
+            // 记录用户最后活跃时间
+            \App\Http\Middleware\RecordLastActivedTime::class,
         ],
 
+        // API 中间件组，应用于 route/api.php 路由文件，
+        // 在 RouteServiceProvider 中设定
         'api' => [
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
